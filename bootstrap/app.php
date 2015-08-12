@@ -2,7 +2,7 @@
 
 require_once __DIR__.'/../vendor/autoload.php';
 
-// Dotenv::load(__DIR__.'/../');
+Dotenv::load(__DIR__.'/../');
 
 /*
 |--------------------------------------------------------------------------
@@ -15,9 +15,30 @@ require_once __DIR__.'/../vendor/autoload.php';
 |
 */
 
-$app = new Laravel\Lumen\Application(
-	realpath(__DIR__.'/../')
+use Laravel\Lumen\Application as BaseApplication;
+
+class Application extends BaseApplication
+{
+    // Because this pull (https://github.com/laravel/lumen-framework/pull/21) will not be accepted by the strict moderators of Lumen, such a shame...
+    public function getPathInfo()
+    {
+        $query = isset($_SERVER['QUERY_STRING']) ? $_SERVER['QUERY_STRING'] : '';
+        $folder = dirname($_SERVER['SCRIPT_NAME']);
+        $uri = $_SERVER['REQUEST_URI'];
+        if ($folder != $uri && strpos($uri, $folder) === 0) {
+            $uri = substr($uri, strlen($folder));
+        }
+        return '/'.ltrim(str_replace('?'.$query, '', $uri), '/');
+    }
+}
+
+$app = new Application(
+    realpath(__DIR__.'/../')
 );
+
+// $app = new Laravel\Lumen\Application(
+//     realpath(__DIR__.'/../')
+// );
 
 // $app->withFacades();
 
@@ -80,20 +101,6 @@ $app->singleton(
 
 // $app->register(App\Providers\AppServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
-
-/*
-|--------------------------------------------------------------------------
-| Load The Application Routes
-|--------------------------------------------------------------------------
-|
-| Next we will include the routes file so that they can all be added to
-| the application. This will provide all of the URLs the application
-| can respond to, as well as the controllers that may handle them.
-|
-*/
-
-$app->group(['namespace' => 'App\Http\Controllers'], function ($app) {
-	require __DIR__.'/../app/Http/routes.php';
-});
+$app->register(App\Providers\RouteServiceProvider::class);
 
 return $app;
