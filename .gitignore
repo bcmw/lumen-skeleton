@@ -1,0 +1,13 @@
+/lumen.log
+/vendor
+node_modules
+*.sublime-*
+.sublime-grunt-cache
+*.psd
+.env
+!composer.lock
+composer.phar
+error_log
+_ide_helper.php
+sftp-config.json
+.DS_Store
