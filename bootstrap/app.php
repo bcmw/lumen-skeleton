@@ -102,5 +102,7 @@ $app->singleton(
 // $app->register(App\Providers\AppServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 $app->register(App\Providers\RouteServiceProvider::class);
+$app->configure('twigbridge');
+$app->register(TwigBridge\ServiceProvider::class);
 
 return $app;
