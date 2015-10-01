@@ -2,7 +2,11 @@
 
 require_once __DIR__.'/../vendor/autoload.php';
 
-Dotenv::load(__DIR__.'/../');
+try {
+    Dotenv::load(__DIR__.'/../');
+} catch (Exception $e) {
+    exit($e->getMessage());
+}
 
 /*
 |--------------------------------------------------------------------------
