@@ -3,8 +3,8 @@
 require_once __DIR__.'/../vendor/autoload.php';
 
 try {
-    Dotenv::load(__DIR__.'/../');
-} catch (Exception $e) {
+    (new Dotenv\Dotenv(__DIR__.'/../'))->load();
+} catch (Dotenv\Exception\InvalidPathException $e) {
     exit($e->getMessage());
 }
 
@@ -39,10 +39,6 @@ class Application extends BaseApplication
 $app = new Application(
     realpath(__DIR__.'/../')
 );
-
-// $app = new Laravel\Lumen\Application(
-//     realpath(__DIR__.'/../')
-// );
 
 // $app->withFacades();
 
@@ -81,15 +77,11 @@ $app->singleton(
 */
 
 // $app->middleware([
-//     // Illuminate\Cookie\Middleware\EncryptCookies::class,
-//     // Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
-//     // Illuminate\Session\Middleware\StartSession::class,
-//     // Illuminate\View\Middleware\ShareErrorsFromSession::class,
-//     // Laravel\Lumen\Http\Middleware\VerifyCsrfToken::class,
+//    App\Http\Middleware\ExampleMiddleware::class
 // ]);
 
 // $app->routeMiddleware([
-
+//     'auth' => App\Http\Middleware\Authenticate::class,
 // ]);
 
 /*
@@ -104,9 +96,9 @@ $app->singleton(
 */
 
 // $app->register(App\Providers\AppServiceProvider::class);
+// $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
+
 $app->register(App\Providers\RouteServiceProvider::class);
-$app->configure('twigbridge');
-$app->register(TwigBridge\ServiceProvider::class);
 
 return $app;

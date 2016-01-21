@@ -6,9 +6,8 @@
     "type": "project",
     "require": {
         "php": ">=5.5.9",
-        "laravel/lumen-framework": "5.1.*",
-        "vlucas/phpdotenv": "~1.0",
-        "rcrowe/twigbridge": "0.8.x"
+        "laravel/lumen-framework": "5.2.*",
+        "vlucas/phpdotenv": "2.0.*"
     },
     "require-dev": {
         "phpunit/phpunit": "~4.0",
