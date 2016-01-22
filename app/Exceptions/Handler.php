@@ -33,6 +33,17 @@ class Handler extends ExceptionHandler
      */
     public function report(Exception $e)
     {
+        foreach ($this->dontReport as $type) {
+            if ($e instanceof $type) {
+                return parent::report($e);
+            }
+        }
+
+        // TODO: integrate laravel service provider to work with lumen
+        if ($this->app->bound('cask')) {
+            $this->app->cask->reportException($e);
+        }
+
         return parent::report($e);
     }
 

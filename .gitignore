@@ -1,13 +1,42 @@
-/lumen.log
+# 3rd party stuff
 /vendor
-node_modules
-*.sublime-*
-.sublime-grunt-cache
+/node_modules
+/bower_components
+
+# Compiled by Gulp
+/.tmp
+/resources/assets/build/*
+/resources/views/_assets/*
+/public/assets/*
+!/public/assets/.htaccess
+
+# Misc files
+/.sass-cache
+/SOURCE
+/.vagrant
 *.psd
-.env
-!composer.lock
-composer.phar
-error_log
-_ide_helper.php
-sftp-config.json
+Thumbs.db
 .DS_Store
+composer.phar
+!composer.lock
+.ftpquota
+error_log
+*.sublime-*
+sftp-config.json
+.tmp*
+
+# IntelliJ stuff
+/.idea/workspace.xml
+/.idea/vagrant.xml
+/.idea/dictionaries
+
+# Laravel stuff
+_ide_helper.php
+.phpstorm.meta.php
+storage/testing.sqlite
+Homestead.yaml
+Homestead.json
+storage/framework/schedule-*
+
+# Dotenv stuff
+/.env
